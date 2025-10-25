@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Financiero - Banorte</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Contenedores superiores */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .info-card {
+            text-align: center;
+        }
+
+        .info-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.75rem;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #C1001F 0%, #E30613 100%);
+            color: white;
+            padding: 2.5rem 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(193, 0, 31, 0.2);
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* Sección de gráficas */
+        .charts-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-title {
+            font-size: 0.875rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        /* Gráfica de barras */
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 250px;
+            padding: 1rem 0;
+            border-bottom: 2px solid #e5e5e5;
+            position: relative;
+        }
+
+        .bar-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .bars {
+            display: flex;
+            gap: 0.25rem;
+            align-items: flex-end;
+            height: 200px;
+        }
+
+        .bar {
+            width: 30px;
+            background: linear-gradient(180deg, #E30613 0%, #C1001F 100%);
+            border-radius: 4px 4px 0 0;
+            transition: all 0.3s ease;
+        }
+
+        .bar:hover {
+            opacity: 0.8;
+        }
+
+        .bar-label {
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        /* Leyenda */
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            font-size: 0.75rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+
+        /* Gráfica circular */
+        .pie-chart-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+        }
+
+        .pie-chart {
+            width: 280px;
+            height: 280px;
+        }
+
+        @media (max-width: 768px) {
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Contenedores de información -->
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Ingresos</h3>
+                <div class="info-box">$0.00</div>
+            </div>
+            <div class="info-card">
+                <h3>Gastos</h3>
+                <div class="info-box">$0.00</div>
+            </div>
+            <div class="info-card">
+                <h3>Riesgos</h3>
+                <div class="info-box">0</div>
+            </div>
+            <div class="info-card">
+                <h3>Advertencias</h3>
+                <div class="info-box">0</div>
+            </div>
+        </div>
+
+        <!-- Sección de gráficas -->
+        <div class="charts-section">
+            <!-- Gráfica de barras -->
+            <div class="chart-container">
+                <div class="chart-title">
+                    Quiza un grafico que prediga<br>los gastos-ingresos en cada categoria
+                </div>
+                <div class="bar-chart">
+                    <div class="bar-group">
+                        <div class="bars">
+                            <div class="bar" style="height: 15%;"></div>
+                            <div class="bar" style="height: 20%; background: linear-gradient(180deg, #FF4D5E 0%, #E30613 100%);"></div>
+                        </div>
+                        <div class="bar-label">Elemento 1</div>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bars">
+                            <div class="bar" style="height: 30%;"></div>
+                            <div class="bar" style="height: 40%; background: linear-gradient(180deg, #FF4D5E 0%, #E30613 100%);"></div>
+                        </div>
+                        <div class="bar-label">Elemento 2</div>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bars">
+                            <div class="bar" style="height: 50%;"></div>
+                            <div class="bar" style="height: 65%; background: linear-gradient(180deg, #FF4D5E 0%, #E30613 100%);"></div>
+                        </div>
+                        <div class="bar-label">Elemento 3</div>
+                    </div>
+                </div>
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: linear-gradient(135deg, #C1001F 0%, #E30613 100%);"></div>
+                        <span>Serie 1</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: linear-gradient(135deg, #FF4D5E 0%, #E30613 100%);"></div>
+                        <span>Serie 2</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gráfica circular -->
+            <div class="chart-container">
+                <div class="chart-title">
+                    Un grafico que contenga lo<br>gastos-ingresos en cada categoria
+                </div>
+                <div class="pie-chart-container">
+                    <svg class="pie-chart" viewBox="0 0 100 100">
+                        <!-- Elemento 1: 62.5% -->
+                        <circle cx="50" cy="50" r="40" fill="none" stroke="#C1001F" stroke-width="20"
+                                stroke-dasharray="156.5 251.2" stroke-dashoffset="0" transform="rotate(-90 50 50)"/>
+                        
+                        <!-- Elemento 2: 25% -->
+                        <circle cx="50" cy="50" r="40" fill="none" stroke="#E30613" stroke-width="20"
+                                stroke-dasharray="62.8 251.2" stroke-dashoffset="-156.5" transform="rotate(-90 50 50)"/>
+                        
+                        <!-- Elemento 3: 12.5% -->
+                        <circle cx="50" cy="50" r="40" fill="none" stroke="#FF6B7A" stroke-width="20"
+                                stroke-dasharray="31.4 251.2" stroke-dashoffset="-219.3" transform="rotate(-90 50 50)"/>
+                        
+                        <!-- Etiquetas -->
+                        <text x="75" y="35" font-size="3" fill="#333">Elemento 1</text>
+                        <text x="75" y="38" font-size="2.5" fill="#666">62.5%</text>
+                        
+                        <text x="15" y="70" font-size="3" fill="#333">Elemento 2</text>
+                        <text x="15" y="73" font-size="2.5" fill="#666">25%</text>
+                        
+                        <text x="60" y="15" font-size="3" fill="#333">Elemento 3</text>
+                        <text x="60" y="18" font-size="2.5" fill="#666">12.5%</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
