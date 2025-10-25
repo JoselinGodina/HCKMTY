@@ -1,0 +1,405 @@
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --banorte-red: #ec0000;
+  --banorte-dark-red: #b80000;
+  --dark-gray: #1a1a1a;
+  --medium-gray: #4a4a4a;
+  --light-gray: #f5f5f5;
+  --border-gray: #e5e5e5;
+  --text-muted: #737373;
+  --white: #ffffff;
+}
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.6;
+  color: var(--dark-gray);
+  background-color: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Container Layout */
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Left Side - Branding */
+.branding-side {
+  display: none;
+  width: 50%;
+  background-color: var(--banorte-red);
+  position: relative;
+  overflow: hidden;
+}
+
+.gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--banorte-red) 0%, var(--banorte-dark-red) 100%);
+}
+
+.decorative-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  filter: blur(80px);
+}
+
+.decorative-circle-1 {
+  top: 80px;
+  left: 80px;
+  width: 256px;
+  height: 256px;
+}
+
+.decorative-circle-2 {
+  bottom: 80px;
+  right: 80px;
+  width: 384px;
+  height: 384px;
+}
+
+.branding-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 48px;
+  color: var(--white);
+  height: 100%;
+}
+
+/* Logo Section */
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 48px;
+  height: 48px;
+  background-color: var(--white);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--banorte-red);
+}
+
+.logo-title {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.logo-subtitle {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Main Content */
+.main-content {
+  max-width: 512px;
+}
+
+.main-title {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  text-wrap: balance;
+}
+
+.main-description {
+  font-size: 20px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 32px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding-top: 32px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stat-value {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.branding-footer {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Right Side - Form */
+.form-side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  background-color: var(--light-gray);
+}
+
+.form-container {
+  width: 100%;
+  max-width: 448px;
+}
+
+/* Mobile Logo */
+.mobile-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.mobile-logo-icon {
+  width: 48px;
+  height: 48px;
+  background-color: var(--banorte-red);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+}
+
+.mobile-logo-title {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--dark-gray);
+}
+
+.mobile-logo-subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* Login Card */
+.login-card {
+  background-color: var(--white);
+  border: 1px solid var(--border-gray);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.card-header {
+  padding: 32px 32px 24px;
+  text-align: center;
+}
+
+.card-title {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.card-description {
+  font-size: 16px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.card-content {
+  padding: 0 32px 32px;
+}
+
+/* Google Button */
+.google-btn {
+  width: 100%;
+  height: 56px;
+  background-color: var(--white);
+  border: 2px solid var(--border-gray);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--dark-gray);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.google-btn:hover {
+  background-color: #fafafa;
+  border-color: var(--text-muted);
+}
+
+.google-btn:active {
+  transform: scale(0.98);
+}
+
+.google-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.google-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.loading-spinner {
+  display: none;
+}
+
+.google-btn.loading .google-icon {
+  display: none;
+}
+
+.google-btn.loading .loading-spinner {
+  display: inline-block;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 24px 0;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background-color: var(--border-gray);
+}
+
+.divider-text {
+  padding: 0 16px;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* Security Features */
+.security-features {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 8px;
+}
+
+.security-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.security-bullet {
+  width: 6px;
+  height: 6px;
+  background-color: var(--banorte-red);
+  border-radius: 50%;
+  margin-top: 8px;
+  flex-shrink: 0;
+}
+
+/* Terms */
+.terms {
+  padding-top: 16px;
+  text-align: center;
+}
+
+.terms p {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.terms-link {
+  color: var(--banorte-red);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.terms-link:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (min-width: 1024px) {
+  .branding-side {
+    display: block;
+  }
+
+  .mobile-logo {
+    display: none;
+  }
+
+  .form-side {
+    width: 50%;
+  }
+}
+
+@media (max-width: 640px) {
+  .form-side {
+    padding: 24px 16px;
+  }
+
+  .card-header {
+    padding: 24px 24px 16px;
+  }
+
+  .card-title {
+    font-size: 24px;
+  }
+
+  .card-description {
+    font-size: 14px;
+  }
+
+  .card-content {
+    padding: 0 24px 24px;
+  }
+
+  .google-btn {
+    height: 48px;
+    font-size: 15px;
+  }
+}
