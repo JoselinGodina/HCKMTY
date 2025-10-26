@@ -11,10 +11,8 @@ load_dotenv()
 
 app = Flask(__name__)
 
-# 🔥 AGREGAR CORS - PERMITIR TODOS LOS ORIGENS
 CORS(app)  # ← ESTA LÍNEA HABILITA CORS
 
-# 🔥 MEMORIA: Lista para guardar todas las conversaciones
 conversaciones = []
 
 # Configurar Gemini
@@ -46,7 +44,7 @@ def guardar_conversacion(usuario, gemini, modelo):
 @app.route('/', methods=['GET'])
 def home():
     return jsonify({
-        "mensaje": "🚀 Servidor MCP con MEMORIA activo",
+        "mensaje": "Servidor MCP con MEMORIA activo",
         "estado": "funcionando", 
         "modelo": "gemini-1.5-flash",
         "conversaciones_guardadas": len(conversaciones),
@@ -74,16 +72,15 @@ def chat_with_gemini():
         
         if not data or 'message' not in data:
             return jsonify({
-                "error": "❌ Falta el campo 'message'",
+                "error": "Falta el campo 'message'",
                 "ejemplo": {"message": "Hola"}
             }), 400
         
         user_message = data['message']
-        custom_prompt = data.get('system_prompt', "")  # 🔥 NUEVO: Recibir prompt personalizado
+        custom_prompt = data.get('system_prompt', "") 
         
-        print(f"📥 MENSAJE RECIBIDO: {user_message}")
-        
-        # 🔥 OPCIONAL: Usar contexto de conversaciones anteriores
+        print(f"MENSAJE RECIBIDO: {user_message}")
+
         contexto = ""
         if conversaciones and data.get('usar_contexto', False):
             # Tomar hasta las últimas 20 conversaciones para no exceder tokens
@@ -93,20 +90,18 @@ def chat_with_gemini():
                 contexto += f"Interacción {i}:\n"
                 contexto += f"Usuario: {conv['usuario']}\n"
                 contexto += f"Asistente: {conv['gemini']}\n\n"
-        
-        # 🔥 MODIFICADO: Incluir prompt personalizado si existe
+
         mensaje_con_contexto = ""
         if custom_prompt:
             mensaje_con_contexto = custom_prompt + "\n\n"
         
         mensaje_con_contexto += contexto + f"\nMensaje actual del usuario: {user_message}" if contexto else user_message 
         
-        print("🔄 Enviando a Gemini...")
+        print("Enviando a Gemini...")
         response = model.generate_content(mensaje_con_contexto)
         gemini_response = response.text
-        print(f"📤 RESPUESTA: {gemini_response}")
+        print(f"RESPUESTA: {gemini_response}")
         
-        # 🔥 GUARDAR EN MEMORIA
         conversacion_guardada = guardar_conversacion(user_message, gemini_response, "gemini-1.5-flash")
         
         return jsonify({
@@ -120,11 +115,11 @@ def chat_with_gemini():
         })
         
     except Exception as e:
-        error_msg = f"❌ Error: {str(e)}"
+        error_msg = f"Error: {str(e)}"
         print(error_msg)
         return jsonify({"error": error_msg}), 500
 
-# 🔥 NUEVO: Endpoint para ver el historial completo
+
 @app.route('/historial', methods=['GET'])
 def obtener_historial():
     try:
@@ -151,7 +146,6 @@ def obtener_historial():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# 🔥 NUEVO: Endpoint para buscar en el historial
 @app.route('/historial/buscar', methods=['GET'])
 def buscar_historial():
     try:
@@ -174,7 +168,6 @@ def buscar_historial():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# 🔥 NUEVO: Endpoint para limpiar memoria
 @app.route('/limpiar', methods=['DELETE'])
 def limpiar_memoria():
     try:
@@ -190,7 +183,6 @@ def limpiar_memoria():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# 🔥 NUEVO: Endpoint para estadísticas
 @app.route('/estadisticas', methods=['GET'])
 def obtener_estadisticas():
     try:
@@ -219,12 +211,12 @@ def obtener_estadisticas():
 
 if __name__ == '__main__':
     print("\n" + "="*60)
-    print("🚀 INICIANDO SERVIDOR MCP CON MEMORIA")
+    print("INICIANDO SERVIDOR MCP CON MEMORIA")
     print("="*60)
-    print("📍 URL: http://localhost:5000")
-    print("🤖 Modelo: gemini-1.5-flash")
-    print("🧠 Memoria: ACTIVADA (se guarda hasta apagar servidor)")
-    print("\n📚 Endpoints:")
+    print("URL: http://localhost:5000")
+    print("Modelo: gemini-1.5-flash")
+    print("Memoria: ACTIVADA (se guarda hasta apagar servidor)")
+    print("\nEndpoints:")
     print("   GET    /health              - Estado del servidor")
     print("   POST   /chat                - Enviar mensaje")
     print("   GET    /historial           - Ver conversaciones")
