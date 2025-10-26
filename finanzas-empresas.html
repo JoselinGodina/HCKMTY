@@ -1,27 +1,358 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Financiero</title>
+    <style>
+        /* ESTILOS CSS COMPLETOS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --banorte-red: #ec0000;
+            --banorte-dark-red: #b80000;
+            --dark-gray: #1a1a1a;
+            --medium-gray: #4a4a4a;
+            --light-gray: #f5f5f5;
+            --border-gray: #e5e5e5;
+            --text-muted: #737373;
+            --white: #ffffff;
+            --success-green: #10b981;
+            --warning-yellow: #f59e0b;
+            --danger-red: #ef4444;
+        }
+
+        body {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background-color: var(--light-gray);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        #root {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            grid-template-rows: auto 1fr auto;
+            min-height: 100vh;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        /* SIDEBAR */
+        #sidebar {
+            grid-column: 1;
+            grid-row: 1 / -1;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-gray);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        #sidebar button {
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #simular {
+            background: var(--banorte-red);
+            color: var(--white);
+        }
+
+        #simular:hover {
+            background: var(--banorte-dark-red);
+            transform: translateY(-2px);
+        }
+
+        #fin-simular {
+            background: var(--medium-gray);
+            color: var(--white);
+        }
+
+        #fin-simular:hover {
+            background: var(--dark-gray);
+            transform: translateY(-2px);
+        }
+
+        #sidebar form {
+            margin-bottom: 24px;
+        }
+
+        #sidebar label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-gray);
+        }
+
+        #sidebar input,
+        #sidebar select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-gray);
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+            margin-bottom: 16px;
+        }
+
+        #sidebar input:focus,
+        #sidebar select:focus {
+            outline: none;
+            border-color: var(--banorte-red);
+        }
+
+        /* Logo Section */
+        .branding-content {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 48px;
+            color: var(--white);
+            height: 100%;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background-color: var(--white);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--banorte-red);
+        }
+
+        .logo-title {
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-subtitle {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* CARTELES - METRICAS */
+        #carteles {
+            grid-column: 2;
+            grid-row: 1;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        #carteles>div {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-gray);
+            text-align: center;
+        }
+
+        #carteles p:first-child {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .valor-metrica {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark-gray);
+        }
+
+        /* SEMAFORO */
+        #semaforo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        #semaforo h3 {
+            font-size: 16px;
+            color: var(--dark-gray);
+            margin-bottom: 8px;
+        }
+
+        .semaforo-botones {
+            display: flex;
+            gap: 8px;
+        }
+
+        .semaforo-botones button {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--white);
+            background: var(--medium-gray);
+            transition: all 0.3s ease;
+        }
+
+        .semaforo-botones button.rojo {
+            background: var(--danger-red);
+            transform: scale(1.1);
+        }
+
+        .semaforo-botones button.amarillo {
+            background: var(--warning-yellow);
+            transform: scale(1.1);
+        }
+
+        .semaforo-botones button.verde {
+            background: var(--success-green);
+            transform: scale(1.1);
+        }
+
+        /* GRAFICOS */
+        #graficos {
+            grid-column: 2;
+            grid-row: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        #graficos>div {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-gray);
+        }
+
+        #graficos h3 {
+            margin-bottom: 16px;
+            color: var(--dark-gray);
+            font-size: 18px;
+        }
+
+        #graficos iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+            border-radius: 8px;
+            background: var(--light-gray);
+        }
+
+        /* CHATBOT */
+        #chatbot {
+            grid-column: 2;
+            grid-row: 3;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-gray);
+            min-height: 200px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            #root {
+                grid-template-columns: 1fr;
+            }
+
+            #sidebar {
+                grid-column: 1;
+                grid-row: 1;
+            }
+
+            #carteles {
+                grid-column: 1;
+                grid-row: 2;
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            #graficos {
+                grid-column: 1;
+                grid-row: 3;
+                grid-template-columns: 1fr;
+            }
+
+            #chatbot {
+                grid-column: 1;
+                grid-row: 4;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #carteles {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <div id="root">
+        <div class="branding-content">
+            <!-- Logo -->
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="logo-title">Algo.IA</h1>
+                    <p class="logo-subtitle">by Banorte</p>
+                </div>
+            </div>
+        </div>
+
+
         <aside id="sidebar">
-            <button id="simular" onclick="">Simular</button><!--Se abre una ventanita para ingresar la cantidades de la simulacion-->
-            <button id="fin-simular" onclick="">Fin Simular</button>
-            <form><!--Apunta hacia el simulador-->
-                <label for="ingresos-sim">Ingresos a simular</label>
-                <input type="text" id="ingresos-sim" name="ingresos-sim">
-                <label for="egresos-sim">Egresos a simular</label>
-                <input type="text" id="egresos-sim" name="egresos-sim">
-            </form>
-            <form><!--Apunta hacia la prediccion se debe actualizar cuando se cambie-->
-                <label for="s-tiempo">Prediccion de tiempo</label><!--Mandar el valor seleccionado al modelo predictivo-->
-                <select id="s-tiempo" name="s-tiempo">
+            <div class="button-group">
+                <button id="simular" onclick="abrirModalSimulacion()">Simular</button>
+                <button id="fin-simular" onclick="cerrarSimulacion()">Fin Simular</button>
+            </div>
+
+            <form id="form-prediccion">
+                <label for="s-tiempo">Predicción de tiempo</label>
+                <select id="s-tiempo" name="s-tiempo" onchange="actualizarPrediccion()">
                     <option value="1">1 Mes</option>
                     <option value="3">3 Meses</option>
                     <option value="6">6 Meses</option>
@@ -29,47 +360,188 @@
                 </select>
             </form>
         </aside>
+
         <div id="carteles">
             <div id="ingresos">
                 <p>Ingresos</p>
-                <!--Traer de la db los datos-->
+                <div class="valor-metrica" id="valor-ingresos">$0.00</div>
             </div>
             <div id="egresos">
                 <p>Egresos</p>
-                <!--Traer de la db los datos-->
+                <div class="valor-metrica" id="valor-egresos">$0.00</div>
             </div>
             <div id="flujo-dinero">
                 <p>Flujo de dinero</p>
-                <!--Se calcula de Ingresos y Egresos-->
+                <div class="valor-metrica" id="valor-flujo">$0.00</div>
             </div>
-            <div id="semaforo"><!--El semaforo cambiara segun el flujo de dinero-->
+            <div id="semaforo">
                 <h3>Salud financiera</h3>
-                <button>
-                    <p>R</p>
-                </button>
-                <button>
-                    <p>A</p>
-                </button>
-                <button>
-                    <p>V</p>
-                </button>
+                <div class="semaforo-botones">
+                    <button id="btn-rojo">R</button>
+                    <button id="btn-amarillo">A</button>
+                    <button id="btn-verde">V</button>
+                </div>
             </div>
         </div>
+
         <div id="graficos">
             <div id="gastos-categoria">
-                <h3>Gastos por categorias</h3>
-                <iframe></iframe><!--Grafica de los gastos-->
+                <h3>Gastos por categorías</h3>
+                <iframe id="grafica-gastos" title="Gráfica de Gastos por Categorías"></iframe>
             </div>
             <div id="prediccion">
-                <h3>Prediccion sobre salud financiera</h3>
-                <iframe></iframe>
-                <!--Grafica de la prediccion-->
+                <h3>Predicción sobre salud financiera</h3>
+                <iframe id="grafica-prediccion" title="Gráfica de Predicción Financiera"></iframe>
             </div>
         </div>
+
         <div id="chatbot">
-            <!--aqui va el chactbot-->
+            <h3>Asistente Financiero</h3>
+            <p>Espacio reservado para integración de chatbot</p>
         </div>
     </div>
+
+    <!-- Modal para Simulación -->
+    <div id="modal-simulacion"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+        <div style="background: white; padding: 30px; border-radius: 12px; width: 90%; max-width: 500px;">
+            <h3 style="margin-bottom: 20px;">Simulación Financiera</h3>
+            <form id="modal-form">
+                <label for="modal-ingresos">Ingresos de simulación:</label>
+                <input type="number" id="modal-ingresos"
+                    style="width: 100%; padding: 10px; margin: 10px 0 20px 0; border: 2px solid #e5e5e5; border-radius: 8px;">
+
+                <label for="modal-egresos">Egresos de simulación:</label>
+                <input type="number" id="modal-egresos"
+                    style="width: 100%; padding: 10px; margin: 10px 0 20px 0; border: 2px solid #e5e5e5; border-radius: 8px;">
+
+                <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                    <button type="button" onclick="cerrarModal()"
+                        style="padding: 10px 20px; background: #737373; color: white; border: none; border-radius: 8px; cursor: pointer;">Cancelar</button>
+                    <button type="button" onclick="aplicarSimulacion()"
+                        style="padding: 10px 20px; background: #ec0000; color: white; border: none; border-radius: 8px; cursor: pointer;">Aplicar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // DATOS DE EJEMPLO (simulando base de datos)
+        const datosFinancieros = {
+            ingresos: 15000,
+            egresos: 12000,
+            flujoEfectivo: 3000,
+            simulacionActiva: false
+        };
+
+        // ELEMENTOS DEL DOM
+        const elementos = {
+            ingresos: document.getElementById('valor-ingresos'),
+            egresos: document.getElementById('valor-egresos'),
+            flujo: document.getElementById('valor-flujo'),
+            btnRojo: document.getElementById('btn-rojo'),
+            btnAmarillo: document.getElementById('btn-amarillo'),
+            btnVerde: document.getElementById('btn-verde'),
+            modal: document.getElementById('modal-simulacion')
+        };
+
+        // INICIALIZACIÓN
+        document.addEventListener('DOMContentLoaded', function () {
+            cargarDatosFinancieros();
+            actualizarSemaforo();
+        });
+
+        // FUNCIÓN PARA CARGAR DATOS (simulando conexión a DB)
+        function cargarDatosFinancieros() {
+            // En una implementación real, aquí harías una llamada a la API
+            elementos.ingresos.textContent = `$${datosFinancieros.ingresos.toLocaleString()}`;
+            elementos.egresos.textContent = `$${datosFinancieros.egresos.toLocaleString()}`;
+            elementos.flujo.textContent = `$${datosFinancieros.flujoEfectivo.toLocaleString()}`;
+        }
+
+        // FUNCIÓN PARA ACTUALIZAR SEMÁFORO
+        function actualizarSemaforo() {
+            const flujo = datosFinancieros.flujoEfectivo;
+            const cincoPorciento = datosFinancieros.ingresos * 0.05;
+
+            // Resetear todos los botones
+            elementos.btnRojo.className = '';
+            elementos.btnAmarillo.className = '';
+            elementos.btnVerde.className = '';
+
+            if (flujo < 0) {
+                // ROJO: Flujo negativo
+                elementos.btnRojo.classList.add('rojo');
+            } else if (flujo >= 0 && flujo <= cincoPorciento) {
+                // AMARILLO: Flujo entre 0 y 5% de los ingresos
+                elementos.btnAmarillo.classList.add('amarillo');
+            } else {
+                // VERDE: Flujo mayor al 5% de los ingresos
+                elementos.btnVerde.classList.add('verde');
+            }
+        }
+
+        // FUNCIONES DE SIMULACIÓN
+        function abrirModalSimulacion() {
+            elementos.modal.style.display = 'flex';
+        }
+
+        function cerrarModal() {
+            elementos.modal.style.display = 'none';
+        }
+
+        function aplicarSimulacion() {
+            const ingresosSim = parseFloat(document.getElementById('modal-ingresos').value) || 0;
+            const egresosSim = parseFloat(document.getElementById('modal-egresos').value) || 0;
+
+            // Aplicar simulación
+            datosFinancieros.ingresos = ingresosSim;
+            datosFinancieros.egresos = egresosSim;
+            datosFinancieros.flujoEfectivo = ingresosSim - egresosSim;
+            datosFinancieros.simulacionActiva = true;
+
+            // Actualizar interfaz
+            cargarDatosFinancieros();
+            actualizarSemaforo();
+            cerrarModal();
+
+            console.log('Simulación aplicada:', datosFinancieros);
+        }
+
+        function cerrarSimulacion() {
+            if (datosFinancieros.simulacionActiva) {
+                // Restaurar datos originales (en realidad, harías una nueva consulta a la DB)
+                datosFinancieros.ingresos = 15000;
+                datosFinancieros.egresos = 12000;
+                datosFinancieros.flujoEfectivo = 3000;
+                datosFinancieros.simulacionActiva = false;
+
+                cargarDatosFinancieros();
+                actualizarSemaforo();
+
+                console.log('Simulación finalizada');
+            }
+        }
+
+        // FUNCIÓN DE PREDICCIÓN
+        function actualizarPrediccion() {
+            const tiempo = document.getElementById('s-tiempo').value;
+            console.log('Actualizando predicción para:', tiempo, 'meses');
+
+            // En una implementación real, aquí llamarías al modelo MCP
+            // con el valor seleccionado y actualizarías las gráficas
+        }
+
+        // SIMULAR CARGA DE GRÁFICAS (Power BI)
+        setTimeout(() => {
+            // En una implementación real, aquí cargarías las URLs de Power BI
+            document.getElementById('grafica-gastos').innerHTML =
+                '<div style="display: flex; justify-content: center; align-items: center; height: 100%; color: #737373;">Gráfica de Gastos por Categorías (Power BI)</div>';
+
+            document.getElementById('grafica-prediccion').innerHTML =
+                '<div style="display: flex; justify-content: center; align-items: center; height: 100%; color: #737373;">Gráfica de Predicción (Power BI)</div>';
+        }, 1000);
+    </script>
 </body>
 
 </html>
