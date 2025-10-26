@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finanzas Empresas</title>
+
+</head>
+
+<body>
+    <div id="root">
+        <aside id="sidebar">
+            <button id="simular" onclick="">Simular</button><!--Se abre una ventanita para ingresar la cantidades de la simulacion-->
+            <button id="fin-simular" onclick="">Fin Simular</button>
+            <form><!--Apunta hacia el simulador-->
+                <label for="ingresos-sim">Ingresos a simular</label>
+                <input type="text" id="ingresos-sim" name="ingresos-sim">
+                <label for="egresos-sim">Egresos a simular</label>
+                <input type="text" id="egresos-sim" name="egresos-sim">
+            </form>
+            <form><!--Apunta hacia la prediccion se debe actualizar cuando se cambie-->
+                <label for="s-tiempo">Prediccion de tiempo</label><!--Mandar el valor seleccionado al modelo predictivo-->
+                <select id="s-tiempo" name="s-tiempo">
+                    <option value="1">1 Mes</option>
+                    <option value="3">3 Meses</option>
+                    <option value="6">6 Meses</option>
+                    <option value="12">12 Meses</option>
+                </select>
+            </form>
+        </aside>
+        <div id="carteles">
+            <div id="ingresos">
+                <p>Ingresos</p>
+                <!--Traer de la db los datos-->
+            </div>
+            <div id="egresos">
+                <p>Egresos</p>
+                <!--Traer de la db los datos-->
+            </div>
+            <div id="flujo-dinero">
+                <p>Flujo de dinero</p>
+                <!--Se calcula de Ingresos y Egresos-->
+            </div>
+            <div id="semaforo"><!--El semaforo cambiara segun el flujo de dinero-->
+                <h3>Salud financiera</h3>
+                <button>
+                    <p>R</p>
+                </button>
+                <button>
+                    <p>A</p>
+                </button>
+                <button>
+                    <p>V</p>
+                </button>
+            </div>
+        </div>
+        <div id="graficos">
+            <div id="gastos-categoria">
+                <h3>Gastos por categorias</h3>
+                <iframe></iframe><!--Grafica de los gastos-->
+            </div>
+            <div id="prediccion">
+                <h3>Prediccion sobre salud financiera</h3>
+                <iframe></iframe>
+                <!--Grafica de la prediccion-->
+            </div>
+        </div>
+        <div id="chatbot">
+            <!--aqui va el chactbot-->
+        </div>
+    </div>
+</body>
+
+</html>
