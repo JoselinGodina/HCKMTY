@@ -1,6 +1,7 @@
 import os
 import google.generativeai as genai
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # ← AGREGAR ESTA IMPORTACIÓN
 from dotenv import load_dotenv
 import datetime
 import json
@@ -9,6 +10,9 @@ import json
 load_dotenv()
 
 app = Flask(__name__)
+
+# 🔥 AGREGAR CORS - PERMITIR TODOS LOS ORIGENS
+CORS(app)  # ← ESTA LÍNEA HABILITA CORS
 
 # 🔥 MEMORIA: Lista para guardar todas las conversaciones
 conversaciones = []

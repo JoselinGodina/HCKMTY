@@ -13,11 +13,9 @@
     <div class="container">
         <div class="branding-side">
             <div class="gradient-overlay"></div>
-            
             <!-- Decorative Elements -->
             <div class="decorative-circle decorative-circle-1"></div>
             <div class="decorative-circle decorative-circle-2"></div>
-
             <div class="branding-content">
                 <!-- Logo -->
                 <div class="logo-section">
@@ -31,15 +29,12 @@
                         <p class="logo-subtitle">by Banorte</p>
                     </div>
                 </div>
-
                 <!-- Main Content -->
                 <div class="main-content">
                     <h2 class="main-title">Tu asistente financiero inteligente</h2>
                     <p class="main-description">
-                        Gestiona tus finanzas con el poder de la inteligencia artificial. Análisis en tiempo real, 
-                        recomendaciones personalizadas y control total de tu patrimonio.
+                        Gestiona tus finanzas con el poder de la inteligencia artificial. Análisis en tiempo real, recomendaciones personalizadas y control total de tu patrimonio.
                     </p>
-
                     <div class="stats-grid">
                         <div class="stat-item">
                             <div class="stat-value">24/7</div>
@@ -55,7 +50,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Footer -->
                 <div class="branding-footer">© 2025 Banorte. Todos los derechos reservados.</div>
             </div>
@@ -83,6 +77,10 @@
                                 Iniciar Sesión
                             </button>
                         </form>
+                        <div class="loading" id="loadingIndicator">
+                            <div class="spinner"></div>
+                            <p>Verificando credenciales...</p>
+                        </div>
                         <div id="errorMsg" style="color:red; margin-top:10px;"></div>
                     </div>
                 </div>
@@ -91,40 +89,51 @@
     </div>
 
     <script>
-      const form = document.getElementById('loginForm');
-      const errorDiv = document.getElementById('errorMsg');
+        const form = document.getElementById('loginForm');
+        const errorDiv = document.getElementById('errorMsg');
+        const loadingIndicator = document.getElementById('loadingIndicator');
 
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        errorDiv.textContent = '';
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errorDiv.textContent = '';
+            
+            const idempresa = document.getElementById('idempresa').value.trim();
+            const contrasena = document.getElementById('contrasena').value.trim();
 
-        const idempresa = document.getElementById('idempresa').value.trim();
-        const contrasena = document.getElementById('contrasena').value.trim();
+            // Mostrar indicador de carga
+            loadingIndicator.style.display = 'block';
 
-        try {
-          const res = await fetch('http://localhost:3000/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ idempresa, contrasena })
-          });
+            try {
+                const res = await fetch('http://localhost:3000/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ idempresa, contrasena })
+                });
 
-          const data = await res.json();
-
-          if(data.success){
-            console.log(`Usuario ${idempresa} logeado correctamente`);
-            errorDiv.style.color = 'green';
-            errorDiv.textContent = 'Login correcto (ver consola)';
-          } else {
-            console.log(`Error de login: ${data.message}`);
-            errorDiv.style.color = 'red';
-            errorDiv.textContent = data.message;
-          }
-        } catch(err){
-          errorDiv.style.color = 'red';
-          errorDiv.textContent = 'Error al conectar con el servidor';
-          console.error(err);
-        }
-      });
+                const data = await res.json();
+                
+                if(data.success){
+                    console.log(`Usuario ${idempresa} logeado correctamente`);
+                    
+                    // Redirigir a index2.html con el idempresa como parámetro
+                    window.location.href = `views/finanzas-empresas.html?idempresa=${encodeURIComponent(idempresa)}`;
+                    
+                } else {
+                    console.log(`Error de login: ${data.message}`);
+                    errorDiv.style.color = 'red';
+                    errorDiv.textContent = data.message;
+                }
+            } catch(err) {
+                errorDiv.style.color = 'red';
+                errorDiv.textContent = 'Error al conectar con el servidor';
+                console.error(err);
+            } finally {
+                // Ocultar indicador de carga
+                loadingIndicator.style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html>

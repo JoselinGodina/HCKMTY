@@ -81,7 +81,15 @@
 
         <div id="chatbot">
             <h3>Asistente Financiero</h3>
-            <p>Espacio reservado para integración de chatbot</p>
+            <div class="chat-conversacion" id="chat-conversacion">
+                <div class="chat-mensaje mensaje-asistente">
+                    ¡Hola! Soy tu asistente financiero. ¿En qué puedo ayudarte hoy?
+                </div>
+            </div>
+            <div class="chat-input-container">
+    <input type="text" id="chat-input" placeholder="Escribe tu mensaje aquí..." onkeypress="manejarEnter(event)">
+    <button id="enviar-mensaje" onclick="enviarMensaje()">Enviar</button>
+</div>
         </div>
     </div>
 
@@ -110,6 +118,7 @@
     </div>
 
     <script src="/views/scripts.js"></script>
+    
 </body>
 
 </html>
