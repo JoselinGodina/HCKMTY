@@ -17,7 +17,7 @@ async function enviarMensaje() {
         
         // Crear el mensaje con el prompt del sistema y datos financieros
         const promptSistema = `
-Eres un asistente llamado chatiBOT, una IA que ayuda a empresas (PyMEs) e inversionistas a manejar sus datos financieros. 
+Eres un asistente llamado Algo.IA, una IA que ayuda a empresas (PyMEs) e inversionistas a manejar sus datos financieros. 
 Tu objetivo es proporcionar la mejor solución a las dudas de los clientes para guiarlos en la inversión, explicando cómo 
 llegaste a tus conclusiones mediante sus datos (ingresos, egresos, monto, categoría, concepto, fecha).
 
