@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Financiero</title>
+    <link rel="stylesheet" href="/views/styles-view.css">
+</head>
+
+<body>
+    <div id="root">
+        <div class="branding-content">
+            <!-- Logo -->
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="logo-title">Algo.IA</h1>
+                    <p class="logo-subtitle">by They++</p>
+                </div>
+            </div>
+        </div>
+
+
+        <aside id="sidebar">
+            <div class="button-group">
+                <button id="simular" onclick="abrirModalSimulacion()">Simular</button>
+                <button id="fin-simular" onclick="cerrarSimulacion()">Fin Simular</button>
+            </div>
+
+            <form id="form-prediccion">
+                <label for="s-tiempo">Predicción de tiempo</label>
+                <select id="s-tiempo" name="s-tiempo" onchange="actualizarPrediccion()">
+                    <option value="1">1 Mes</option>
+                    <option value="3">3 Meses</option>
+                    <option value="6">6 Meses</option>
+                    <option value="12">12 Meses</option>
+                </select>
+            </form>
+        </aside>
+
+        <div id="carteles">
+            <div id="ingresos">
+                <p>Ingresos</p>
+                <div class="valor-metrica" id="valor-ingresos">$0.00</div>
+            </div>
+            <div id="egresos">
+                <p>Egresos</p>
+                <div class="valor-metrica" id="valor-egresos">$0.00</div>
+            </div>
+            <div id="flujo-dinero">
+                <p>Flujo de dinero</p>
+                <div class="valor-metrica" id="valor-flujo">$0.00</div>
+            </div>
+            <div id="semaforo">
+                <h3>Salud financiera</h3>
+                <div class="semaforo-botones">
+                    <button id="btn-rojo">R</button>
+                    <button id="btn-amarillo">A</button>
+                    <button id="btn-verde">V</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="graficos">
+            <div id="gastos-categoria">
+                <h3>Gastos por categorías</h3>
+                <iframe id="grafica-gastos" title="Gráfica de Gastos por Categorías"></iframe>
+            </div>
+            <div id="prediccion">
+                <h3>Predicción sobre salud financiera</h3>
+                <iframe id="grafica-prediccion" title="Gráfica de Predicción Financiera"></iframe>
+            </div>
+        </div>
+
+        <div id="chatbot">
+            <h3>Asistente Financiero</h3>
+            <p>Espacio reservado para integración de chatbot</p>
+        </div>
+    </div>
+
+    <!-- Modal para Simulación -->
+    <div id="modal-simulacion"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+        <div style="background: white; padding: 30px; border-radius: 12px; width: 90%; max-width: 500px;">
+            <h3 style="margin-bottom: 20px;">Simulación Financiera</h3>
+            <form id="modal-form">
+                <label for="modal-ingresos">Ingresos de simulación:</label>
+                <input type="number" id="modal-ingresos"
+                    style="width: 100%; padding: 10px; margin: 10px 0 20px 0; border: 2px solid #e5e5e5; border-radius: 8px;">
+
+                <label for="modal-egresos">Egresos de simulación:</label>
+                <input type="number" id="modal-egresos"
+                    style="width: 100%; padding: 10px; margin: 10px 0 20px 0; border: 2px solid #e5e5e5; border-radius: 8px;">
+
+                <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                    <button type="button" onclick="cerrarModal()"
+                        style="padding: 10px 20px; background: #737373; color: white; border: none; border-radius: 8px; cursor: pointer;">Cancelar</button>
+                    <button type="button" onclick="aplicarSimulacion()"
+                        style="padding: 10px 20px; background: #ec0000; color: white; border: none; border-radius: 8px; cursor: pointer;">Aplicar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/views/scripts.js"></script>
+</body>
+
+</html>

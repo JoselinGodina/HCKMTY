@@ -1,1 +1,315 @@
-class
+/* ESTILOS CSS COMPLETOS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --banorte-red: #ec0000;
+    --banorte-dark-red: #b80000;
+    --dark-gray: #1a1a1a;
+    --medium-gray: #4a4a4a;
+    --light-gray: #f5f5f5;
+    --border-gray: #e5e5e5;
+    --text-muted: #737373;
+    --white: #ffffff;
+    --success-green: #10b981;
+    --warning-yellow: #f59e0b;
+    --danger-red: #ef4444;
+}
+
+body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    line-height: 1.6;
+    color: var(--dark-gray);
+    background-color: var(--light-gray);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* SIDEBAR */
+#sidebar {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    background: var(--white);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-gray);
+}
+
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+#sidebar button {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#simular {
+    background: var(--banorte-red);
+    color: var(--white);
+}
+
+#simular:hover {
+    background: var(--banorte-dark-red);
+    transform: translateY(-2px);
+}
+
+#fin-simular {
+    background: var(--medium-gray);
+    color: var(--white);
+}
+
+#fin-simular:hover {
+    background: var(--dark-gray);
+    transform: translateY(-2px);
+}
+
+#sidebar form {
+    margin-bottom: 24px;
+}
+
+#sidebar label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--dark-gray);
+}
+
+#sidebar input,
+#sidebar select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--border-gray);
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+    margin-bottom: 16px;
+}
+
+#sidebar input:focus,
+#sidebar select:focus {
+    outline: none;
+    border-color: var(--banorte-red);
+}
+
+/* Logo Section */
+.branding-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 48px;
+    color:  #ec0000;
+    height: 100%;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icon {
+    width: 48px;
+    height: 48px;
+    background-color: var(--white);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--banorte-red);
+}
+
+.logo-title {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.logo-subtitle {
+    font-size: 14px;
+    color:  #ec0000;
+}
+
+/* CARTELES - METRICAS */
+#carteles {
+    grid-column: 2;
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+#carteles>div {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-gray);
+    text-align: center;
+}
+
+#carteles p:first-child {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.valor-metrica {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--dark-gray);
+}
+
+/* SEMAFORO */
+#semaforo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+#semaforo h3 {
+    font-size: 16px;
+    color: var(--dark-gray);
+    margin-bottom: 8px;
+}
+
+.semaforo-botones {
+    display: flex;
+    gap: 8px;
+}
+
+.semaforo-botones button {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: var(--white);
+    background: var(--medium-gray);
+    transition: all 0.3s ease;
+}
+
+.semaforo-botones button.rojo {
+    background: var(--danger-red);
+    transform: scale(1.1);
+}
+
+.semaforo-botones button.amarillo {
+    background: var(--warning-yellow);
+    transform: scale(1.1);
+}
+
+.semaforo-botones button.verde {
+    background: var(--success-green);
+    transform: scale(1.1);
+}
+
+/* GRAFICOS */
+#graficos {
+    grid-column: 2;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+#graficos>div {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-gray);
+}
+
+#graficos h3 {
+    margin-bottom: 16px;
+    color: var(--dark-gray);
+    font-size: 18px;
+}
+
+#graficos iframe {
+    width: 100%;
+    height: 300px;
+    border: none;
+    border-radius: 8px;
+    background: var(--light-gray);
+}
+
+/* CHATBOT */
+#chatbot {
+    grid-column: 2;
+    grid-row: 3;
+    background: var(--white);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-gray);
+    min-height: 200px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    #root {
+        grid-template-columns: 1fr;
+    }
+
+    #sidebar {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    #carteles {
+        grid-column: 1;
+        grid-row: 2;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #graficos {
+        grid-column: 1;
+        grid-row: 3;
+        grid-template-columns: 1fr;
+    }
+
+    #chatbot {
+        grid-column: 1;
+        grid-row: 4;
+    }
+}
+
+@media (max-width: 768px) {
+    #carteles {
+        grid-template-columns: 1fr;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+}
