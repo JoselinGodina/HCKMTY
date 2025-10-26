@@ -226,6 +226,8 @@ app.get('/mcp-status', async (req, res) => {
   }
 });
 
+
+
 // Iniciar servidor
 app.listen(PORT, async () => {
   console.log(`🚀 Servidor principal corriendo en http://localhost:${PORT}`);

@@ -282,6 +282,15 @@ function manejarEnter(event) {
 
 // INICIALIZACIÓN DEL CHAT Y CARGA DE DATOS
 document.addEventListener('DOMContentLoaded', async function() {
+    // Inicializar elementos
+    elementos.ingresos = document.getElementById('valor-ingresos');
+    elementos.egresos = document.getElementById('valor-egresos');
+    elementos.flujo = document.getElementById('valor-flujo');
+    elementos.btnRojo = document.getElementById('btn-rojo');
+    elementos.btnAmarillo = document.getElementById('btn-amarillo');
+    elementos.btnVerde = document.getElementById('btn-verde');
+    elementos.modal = document.getElementById('modal-simulacion');
+    
     // Agregar event listener para Enter
     const chatInput = document.getElementById('chat-input');
     if (chatInput) {
@@ -296,6 +305,88 @@ document.addEventListener('DOMContentLoaded', async function() {
         agregarMensajeAlChat('¡Hola! Soy chatiBOT, tu asistente financiero. Puedo ayudarte a analizar tus datos financieros, crear simulaciones, hacer proyecciones y diseñar planes de acción. ¿En qué puedo ayudarte hoy?', 'asistente');
     }, 1000);
 });
+const datosFinancieros = {
+    ingresos: 15000,
+    egresos: 12000,
+    flujoEfectivo: 3000,
+    simulacionActiva: false
+};
+
+const elementos = {
+    ingresos: document.getElementById('valor-ingresos'),
+    egresos: document.getElementById('valor-egresos'),
+    flujo: document.getElementById('valor-flujo'),
+    btnRojo: document.getElementById('btn-rojo'),
+    btnAmarillo: document.getElementById('btn-amarillo'),
+    btnVerde: document.getElementById('btn-verde'),
+    modal: document.getElementById('modal-simulacion')
+};
+
+function abrirModalSimulacion() {
+    elementos.modal.style.display = 'flex';
+}
+
+function cerrarModal() {
+    elementos.modal.style.display = 'none';
+}
+
+function aplicarSimulacion() {
+    const ingresosSim = parseFloat(document.getElementById('modal-ingresos').value) || 0;
+    const egresosSim = parseFloat(document.getElementById('modal-egresos').value) || 0;
+
+    // Aplicar simulación
+    datosFinancieros.ingresos = ingresosSim;
+    datosFinancieros.egresos = egresosSim;
+    datosFinancieros.flujoEfectivo = ingresosSim - egresosSim;
+    datosFinancieros.simulacionActiva = true;
+
+    // Actualizar interfaz
+    cargarDatosFinancieros();
+    actualizarSemaforo();
+    cerrarModal();
+
+    console.log('Simulación aplicada:', datosFinancieros);
+}
+
+function cerrarSimulacion() {
+    if (datosFinancieros.simulacionActiva) {
+        // Restaurar datos originales (en realidad, harías una nueva consulta a la DB)
+        datosFinancieros.ingresos = 15000;
+        datosFinancieros.egresos = 12000;
+        datosFinancieros.flujoEfectivo = 3000;
+        datosFinancieros.simulacionActiva = false;
+
+        cargarDatosFinancieros();
+        actualizarSemaforo();
+
+        console.log('Simulación finalizada');
+    }
+}
+
+function actualizarSemaforo() {
+    if (!elementos.btnRojo || !elementos.btnAmarillo || !elementos.btnVerde) return;
+    
+    // Resetear todos los botones
+    elementos.btnRojo.className = '';
+    elementos.btnAmarillo.className = '';
+    elementos.btnVerde.className = '';
+
+    const cincoPorciento = datosFinancieros.ingresos * 0.05;
+
+    if (datosFinancieros.flujoEfectivo < 0) {
+        elementos.btnRojo.classList.add('rojo');
+    } else if (datosFinancieros.flujoEfectivo >= 0 && datosFinancieros.flujoEfectivo <= cincoPorciento) {
+        elementos.btnAmarillo.classList.add('amarillo');
+    } else {
+        elementos.btnVerde.classList.add('verde');
+    }
+}
+function cargarDatosFinancieros() {
+    if (elementos.ingresos) elementos.ingresos.textContent = `$${datosFinancieros.ingresos.toLocaleString()}`;
+    if (elementos.egresos) elementos.egresos.textContent = `$${datosFinancieros.egresos.toLocaleString()}`;
+    if (elementos.flujo) elementos.flujo.textContent = `$${datosFinancieros.flujoEfectivo.toLocaleString()}`;
+}
+
 
 // FUNCIÓN PARA CARGAR DATOS AL INICIAR LA PÁGINA
 async function cargarDatosAlIniciar() {
@@ -348,4 +439,7 @@ async function cargarDatosAlIniciar() {
     } catch (error) {
         console.error('Error cargando datos al iniciar:', error);
     }
+
+    
+
 }
