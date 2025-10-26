@@ -1,0 +1,37 @@
+[
+  {
+    "Monto": 155000,
+    "TipoDeMonto": "Ingreso",
+    "Categoria": "Salario",
+    "Concepto": "Pago quincenal",
+    "Fecha": "2024-01-15"
+  },
+  {
+    "Monto": 3000,
+    "TipoDeMonto": "Egreso",
+    "Categoria": "Vivienda",
+    "Concepto": "Renta departamento",
+    "Fecha": "2024-01-05"
+  },
+  {
+    "Monto": 1200,
+    "TipoDeMonto": "Egreso",
+    "Categoria": "Alimentación",
+    "Concepto": "Supermercado",
+    "Fecha": "2024-01-08"
+  },
+  {
+    "Monto": 800,
+    "TipoDeMonto": "Egreso",
+    "Categoria": "Transporte",
+    "Concepto": "Gasolina y mantenimiento",
+    "Fecha": "2024-01-12"
+  },
+  {
+    "Monto": 18000,
+    "TipoDeMonto": "Ingreso",
+    "Categoria": "Salario",
+    "Concepto": "Pago quincenal",
+    "Fecha": "2024-01-30"
+  }
+]
